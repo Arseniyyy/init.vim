@@ -1,0 +1,12 @@
+{
+    "python.pythonPath": "/home/arseny/.virtualenvs/drf/bin/python",
+    "coc.preferences.documentation.enable": ["python"],
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.memory.keepLibraryLocalVariables": true,
+    "python.analysis.workspaceSymbols.rebuildOnFileChange": true,
+    "python.analysis.workspaceSymbols.enabled": true,
+    "python.analysis.workspaceSymbols.maxSymbols": 2000,
+    "python.jediEnabled": false
+}
+
