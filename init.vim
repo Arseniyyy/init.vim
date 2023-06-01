@@ -56,7 +56,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'bmatcuk/stylelint-lsp'
 Plug 'ryanoasis/vim-devicons' " Developer Icons
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/tagbar'
@@ -95,6 +95,22 @@ function! s:show_documentation()
   endif
 endfunction
 
+" cgn
+nnoremap <silent> c<Tab> :let @/=expand('<cword>')<cr>cgn
+
+" Put a word in a brackets
+" vnoremap [ <Esc>`>a]<Esc>`<i[<Esc>
+" vnoremap ] <Esc>:call ToggleBrackets()<CR>
+"
+" function! ToggleBrackets()
+"   let selected = getreg('"')
+"   if selected =~# '^\[.*\]$'
+"     execute "normal! di["
+"   else
+"     execute "normal! i[<Right>]\<Esc>"
+"   endif
+" endfunction
+
 " Telescope
 nnoremap ,ff <cmd> Telescope find_files cwd=. hidden=true<cr>
 
@@ -115,7 +131,7 @@ nmap <leader>gK 9999<leader>gK
 " Ctrl + a to select all text
 map <C-a> <esc>ggVG<CR>
 
-" "nm" to exit visual
+" "nm" to exit visual mode
 xnoremap nm <Esc>
 
 " Ctrl + c to copy text
@@ -124,6 +140,7 @@ vnoremap <C-c> "+y
 " Rebind copying from "y" to "c"
 " xnoremap c ygv
 
+" Backspace to remove selected text in visual mode
 xnoremap <BS> "_d
 
 " Move to next or previous file
