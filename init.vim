@@ -1,10 +1,10 @@
-set mouse=a
+set mouse=a  " enable mouse
 set encoding=utf-8
 set number
-"set number relativenumber
-syntax enable
+set noswapfile
 set scrolloff=7
 set backspace=indent,eol,start
+set clipboard=unnamedplus
 
 set tabstop=4
 set softtabstop=4
@@ -12,18 +12,15 @@ set shiftwidth=4
 set expandtab
 set autoindent
 set fileformat=unix
-set clipboard=unnamedplus
-set termencoding=utf-8
+filetype indent on      " load filetype-specific indent files
 
 set t_Co=256
 
-filetype indent on
-
-set wrap
-set linebreak
-
-set nobackup
-set noswapfile
+" for tabulation
+set smartindent
+set tabstop=4
+set expandtab
+set shiftwidth=2
 
 
 "let mapleader = "\<C>"
@@ -56,7 +53,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'bmatcuk/stylelint-lsp'
 Plug 'ryanoasis/vim-devicons' " Developer Icons
-" Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/tagbar'
@@ -72,7 +68,6 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'vim-airline/vim-airline-themes'
 
 " color schemas
-Plug 'morhetz/gruvbox'  " colorscheme gruvbox
 Plug 'mhartington/oceanic-next'  " colorscheme OceanicNext
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'ayu-theme/ayu-vim'
@@ -80,8 +75,8 @@ Plug 'lunarvim/colorschemes'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
-call plug#end()
 
+call plug#end()
 
 nnoremap <silent> U :call <SID>show_documentation()<CR>
 
@@ -97,19 +92,6 @@ endfunction
 
 " cgn
 nnoremap <silent> c<Tab> :let @/=expand('<cword>')<cr>cgn
-
-" Put a word in a brackets
-" vnoremap [ <Esc>`>a]<Esc>`<i[<Esc>
-" vnoremap ] <Esc>:call ToggleBrackets()<CR>
-"
-" function! ToggleBrackets()
-"   let selected = getreg('"')
-"   if selected =~# '^\[.*\]$'
-"     execute "normal! di["
-"   else
-"     execute "normal! i[<Right>]\<Esc>"
-"   endif
-" endfunction
 
 " Telescope
 nnoremap ,ff <cmd> Telescope find_files cwd=. hidden=true<cr>
@@ -137,9 +119,6 @@ xnoremap nm <Esc>
 " Ctrl + c to copy text
 vnoremap <C-c> "+y
 
-" Rebind copying from "y" to "c"
-" xnoremap c ygv
-
 " Backspace to remove selected text in visual mode
 xnoremap <BS> "_d
 
@@ -150,20 +129,16 @@ map gp :bp<cr>
 " Shift + L keybindings in visual and normal modes
 nnoremap <S-J> <C-D>
 nnoremap <S-K> <C-U>
-"nnoremap <S-Right> $
-"nnoremap <S-Left> ^
 nnoremap <S-L> w
 nnoremap <S-H> b
 
 vnoremap <S-J> <C-D>
 vnoremap <S-K> <C-U>
-"vnoremap <S-Right> $
-"vnoremap <S-Left> ^
 vnoremap <S-L> w
 vnoremap <S-H> b
 
 "colorscheme system76
-colorscheme catppuccin-mocha
+colorscheme catppuccin
 
 let g:auto_pairs_map_keys = 1
 
@@ -211,6 +186,7 @@ nnoremap d "_d
 
 vnoremap <Delete> "_d
 
+" Unhighlight highlighted text
 nnoremap ,<space> :nohlsearch<CR>
 
 lua << EOF
