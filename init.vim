@@ -22,11 +22,8 @@ set tabstop=4
 set expandtab
 set shiftwidth=2
 
-
 "let mapleader = "\<C>"
 let mapleader = ' '
-
-let python_highlight_all=1
 
 " autoremove trailing whitespaces
 autocmd BufWritePre * :%s/\s\+$//e
@@ -46,11 +43,12 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
 
+Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-airline/vim-airline'
-Plug 'jiangmiao/auto-pairs'
+Plug 'LunarWatcher/auto-pairs'
 Plug 'bmatcuk/stylelint-lsp'
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-surround'
@@ -60,7 +58,7 @@ Plug 'neoclide/coc.nvim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-rhubarb'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.9.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
@@ -68,6 +66,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'vim-airline/vim-airline-themes'
 
 " color schemas
+Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
 Plug 'mhartington/oceanic-next'  " colorscheme OceanicNext
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'ayu-theme/ayu-vim'
@@ -89,6 +88,12 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+let g:python_highlight_all=1
+
+" auto-pairs
+let g:AutoPairsMapBS = 1
+let g:AutoPairsMultilineBackspace = 1
 
 " cgn
 nnoremap <silent> c<Tab> :let @/=expand('<cword>')<cr>cgn
@@ -138,7 +143,7 @@ vnoremap <S-L> w
 vnoremap <S-H> b
 
 "colorscheme system76
-colorscheme catppuccin
+colorscheme rose-pine
 
 let g:auto_pairs_map_keys = 1
 
