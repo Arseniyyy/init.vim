@@ -9,16 +9,16 @@ set clipboard=unnamedplus
 set signcolumn=yes
 
 set fileformat=unix
-filetype indent on      " load filetype-specific indent files
+"filetype indent on      " load filetype-specific indent files
+filetype plugin indent on
 
 set t_Co=256
 
 " for tabulation
-set tabstop=2
+set tabstop=4
 set softtabstop=2
 set shiftwidth=2
 set smartindent
-set expandtab
 set expandtab
 set autoindent
 
@@ -99,7 +99,8 @@ endfunction
 
 let g:python_highlight_all=1
 
-" CoC settings
+
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 " auto-pairs
 let g:AutoPairsMapBS = 1
@@ -223,7 +224,7 @@ local buf_map = function(bufnr, mode, lhs, rhs, opts)
     })
 end
 
-nvim_lsp.tsserver.setup({
+nvim_lsp.tsserver.setup {
     on_attach = function(client, bufnr)
         client.server_capabilities.document_formatting = false
         client.server_capabilities.document_range_formatting = false
@@ -235,7 +236,9 @@ nvim_lsp.tsserver.setup({
         buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
         on_attach(client, bufnr)
     end,
-})
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    cmd = { "typescript-language-server", "--stdio" }
+}
 
 local null_ls = require("null-ls")
 null_ls.setup({
