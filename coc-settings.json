@@ -18,7 +18,7 @@
         "typescript",
         "typescriptreact"
     ],
-    "tsserver.formatOnType": true,
-    "coc.preferences.formatOnType": true
+    // "tsserver.formatOnType": true,
+    // "coc.preferences.formatOnType": true
 }
 

@@ -9,21 +9,21 @@ set clipboard=unnamedplus
 set signcolumn=yes
 
 set fileformat=unix
-"filetype indent on      " load filetype-specific indent files
 filetype plugin indent on
-
-set t_Co=256
-
 " for tabulation
 set tabstop=4
-set softtabstop=4
+" set softtabstop=4
 set shiftwidth=4
-autocmd FileType typescriptreact setlocal shiftwidth=2
-autocmd FileType json setlocal shiftwidth=4
-set smartindent
+" set smartindent
 set expandtab
 set autoindent
 
+set wrap
+
+autocmd FileType typescriptreact setlocal shiftwidth=2
+autocmd FileType json setlocal shiftwidth=4
+
+set t_Co=256
 let mapleader = ' '
 
 " autoremove trailing whitespaces
@@ -49,9 +49,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-"Plug 'prettier/vim-prettier', {
-  "\ 'do': 'npm install --frozen-lockfile --production',
-  "\ 'for': ['javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'npm install --frozen-lockfile --production',
+"   \ 'for': ['javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
@@ -59,7 +59,6 @@ Plug 'preservim/nerdcommenter'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'LunarWatcher/auto-pairs'
-Plug 'bmatcuk/stylelint-lsp'
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -169,7 +168,6 @@ endif
 " airline
 source $HOME/.config/nvim/themes/airline.vim
 
-
 lua require 'colorizer'.setup()
 lua require('Comment').setup()
 
@@ -210,7 +208,6 @@ vnoremap <Delete> "_d
 nnoremap ,<space> :nohlsearch<CR>
 
 " Set termguicolors
-set termguicolors
 hi DiagnosticError guifg=White
 hi DiagnosticWarn  guifg=White
 hi DiagnosticInfo  guifg=White
@@ -242,26 +239,6 @@ nvim_lsp.tsserver.setup {
     end,
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     cmd = { "typescript-language-server", "--stdio" }
-}
-
--- local null_ls = require("null-ls")
--- null_ls.setup({
---     sources = {
---         -- null_ls.builtins.diagnostics.eslint,
---         -- null_ls.builtins.code_actions.eslint,
---         null_ls.builtins.formatting.prettier
---     },
---     on_attach = on_attach
--- })
-
--- Stylelint format after save
-require'lspconfig'.stylelint_lsp.setup{
-  settings = {
-    stylelintplus = {
-      --autoFixOnSave = true,
-      --autoFixOnFormat = true,
-    }
-  }
 }
 EOF
 
