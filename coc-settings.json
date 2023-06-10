@@ -1,6 +1,6 @@
 {
     // "python.pythonPath": "/home/arseny/.virtualenvs/drf/bin/python",
-    "python.pythonPath": "/home/arseny/.virtualenvs/langchain/bin/python"
+    "python.pythonPath": "/home/arseny/.virtualenvs/langchain/bin/python",
     "coc.preferences.documentation.enable": ["python"],
     "python.analysis.autoImportCompletions": true,
     "python.analysis.autoSearchPaths": true,
@@ -9,6 +9,8 @@
     "python.analysis.workspaceSymbols.enabled": true,
     "python.analysis.workspaceSymbols.maxSymbols": 2000,
     "python.jediEnabled": true,
-    "signature.target": "echo"
+    "signature.target": "echo",
+
+    "typescript.suggest.completeFunctionCalls": false
 }
 

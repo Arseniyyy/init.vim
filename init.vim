@@ -6,23 +6,22 @@ set scrolloff=7
 set backspace=indent,eol,start
 set clipboard=unnamedplus
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set autoindent
+set signcolumn=yes
+
 set fileformat=unix
 filetype indent on      " load filetype-specific indent files
 
 set t_Co=256
 
 " for tabulation
-set smartindent
-set tabstop=4
-set expandtab
+set tabstop=2
+set softtabstop=2
 set shiftwidth=2
+set smartindent
+set expandtab
+set expandtab
+set autoindent
 
-"let mapleader = "\<C>"
 let mapleader = ' '
 
 " autoremove trailing whitespaces
@@ -36,12 +35,21 @@ Plug 'numToStr/Comment.nvim'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
+
+" JS, TS, JSX, TSX
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+"Plug 'prettier/vim-prettier', {
+  "\ 'do': 'npm install --frozen-lockfile --production',
+  "\ 'for': ['javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
@@ -90,6 +98,8 @@ function! s:show_documentation()
 endfunction
 
 let g:python_highlight_all=1
+
+" CoC settings
 
 " auto-pairs
 let g:AutoPairsMapBS = 1
@@ -193,6 +203,60 @@ vnoremap <Delete> "_d
 
 " Unhighlight highlighted text
 nnoremap ,<space> :nohlsearch<CR>
+
+" Set termguicolors
+set termguicolors
+hi DiagnosticError guifg=White
+hi DiagnosticWarn  guifg=White
+hi DiagnosticInfo  guifg=White
+hi DiagnosticHint  guifg=White
+
+
+lua << EOF
+local luasnip = require 'luasnip'
+local async = require "plenary.async"
+local nvim_lsp = require 'lspconfig'
+
+local buf_map = function(bufnr, mode, lhs, rhs, opts)
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
+        silent = true,
+    })
+end
+
+nvim_lsp.tsserver.setup({
+    on_attach = function(client, bufnr)
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
+        local ts_utils = require("nvim-lsp-ts-utils")
+        ts_utils.setup({})
+        ts_utils.setup_client(client)
+        buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
+        buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
+        buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
+        on_attach(client, bufnr)
+    end,
+})
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        -- null_ls.builtins.diagnostics.eslint,
+        -- null_ls.builtins.code_actions.eslint,
+        null_ls.builtins.formatting.prettier
+    },
+    on_attach = on_attach
+})
+
+-- Stylelint format after save
+require'lspconfig'.stylelint_lsp.setup{
+  settings = {
+    stylelintplus = {
+      --autoFixOnSave = true,
+      --autoFixOnFormat = true,
+    }
+  }
+}
+EOF
 
 lua << EOF
 require('telescope').setup {
