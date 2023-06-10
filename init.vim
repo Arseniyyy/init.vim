@@ -16,8 +16,10 @@ set t_Co=256
 
 " for tabulation
 set tabstop=4
-set softtabstop=2
-set shiftwidth=2
+set softtabstop=4
+set shiftwidth=4
+autocmd FileType typescriptreact setlocal shiftwidth=2
+autocmd FileType json setlocal shiftwidth=4
 set smartindent
 set expandtab
 set autoindent
@@ -62,7 +64,7 @@ Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/tagbar'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-rhubarb'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
@@ -101,6 +103,8 @@ let g:python_highlight_all=1
 
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 " auto-pairs
 let g:AutoPairsMapBS = 1
@@ -240,15 +244,15 @@ nvim_lsp.tsserver.setup {
     cmd = { "typescript-language-server", "--stdio" }
 }
 
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        -- null_ls.builtins.diagnostics.eslint,
-        -- null_ls.builtins.code_actions.eslint,
-        null_ls.builtins.formatting.prettier
-    },
-    on_attach = on_attach
-})
+-- local null_ls = require("null-ls")
+-- null_ls.setup({
+--     sources = {
+--         -- null_ls.builtins.diagnostics.eslint,
+--         -- null_ls.builtins.code_actions.eslint,
+--         null_ls.builtins.formatting.prettier
+--     },
+--     on_attach = on_attach
+-- })
 
 -- Stylelint format after save
 require'lspconfig'.stylelint_lsp.setup{

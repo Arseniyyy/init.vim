@@ -11,6 +11,14 @@
     "python.jediEnabled": true,
     "signature.target": "echo",
 
-    "typescript.suggest.completeFunctionCalls": false
+    "typescript.suggest.completeFunctionCalls": false,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "tsserver.formatOnType": true,
+    "coc.preferences.formatOnType": true
 }
 
