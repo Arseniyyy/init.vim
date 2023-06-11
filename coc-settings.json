@@ -11,14 +11,19 @@
     "python.jediEnabled": true,
     "signature.target": "echo",
 
-    "typescript.suggest.completeFunctionCalls": false,
     "coc.preferences.formatOnSaveFiletypes": [
         "javascript",
         "javascriptreact",
         "typescript",
         "typescriptreact"
     ],
+    "coc.preferences.formatOnType": true,
     // "tsserver.formatOnType": true,
-    // "coc.preferences.formatOnType": true
+
+    "typescript.suggest.completeFunctionCalls": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "typescript.preferences.quoteStyle": "single"
 }
 

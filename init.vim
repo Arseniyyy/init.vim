@@ -20,6 +20,10 @@ set autoindent
 
 set wrap
 
+" Set shiftwidth for different file extensions
+autocmd FileType typescript setlocal shiftwidth=2
+autocmd FileType javascript setlocal shiftwidth=2
+autocmd FileType javascriptreact setlocal shiftwidth=2
 autocmd FileType typescriptreact setlocal shiftwidth=2
 autocmd FileType json setlocal shiftwidth=4
 
@@ -34,14 +38,15 @@ inoremap jk <esc>
 call plug#begin()
 
 Plug 'numToStr/Comment.nvim'
-Plug 'ray-x/lsp_signature.nvim'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'neovim/nvim-lspconfig'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'L3MON4D3/LuaSnip'
+" Plug 'ray-x/lsp_signature.nvim'
+" Plug 'hrsh7th/nvim-cmp'
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'saadparwaiz1/cmp_luasnip'
+" Plug 'L3MON4D3/LuaSnip'
 
 " JS, TS, JSX, TSX
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -213,40 +218,13 @@ hi DiagnosticWarn  guifg=White
 hi DiagnosticInfo  guifg=White
 hi DiagnosticHint  guifg=White
 
-
 lua << EOF
-local luasnip = require 'luasnip'
-local async = require "plenary.async"
-local nvim_lsp = require 'lspconfig'
+local plenary = require "plenary"
 
-local buf_map = function(bufnr, mode, lhs, rhs, opts)
-    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
-        silent = true,
-    })
-end
-
-nvim_lsp.tsserver.setup {
-    on_attach = function(client, bufnr)
-        client.server_capabilities.document_formatting = false
-        client.server_capabilities.document_range_formatting = false
-        local ts_utils = require("nvim-lsp-ts-utils")
-        ts_utils.setup({})
-        ts_utils.setup_client(client)
-        buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
-        buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
-        buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
-        on_attach(client, bufnr)
-    end,
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-    cmd = { "typescript-language-server", "--stdio" }
-}
-EOF
-
-lua << EOF
 require('telescope').setup {
   defaults = {
     file_sorter = require('telescope.sorters').get_fuzzy_file,
-    file_ignore_patterns = { 'node_modules', '__pycache__', 'static', 'htmlcov', 'migrations', 'media', '.coverage', '^./.git/' },
+    file_ignore_patterns = { 'node_modules', '__pycache__', 'static', 'htmlcov', 'migrations', 'media', '.coverage', '.git/' },
   },
 }
 
