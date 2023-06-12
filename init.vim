@@ -27,6 +27,11 @@ autocmd FileType javascriptreact setlocal shiftwidth=2
 autocmd FileType typescriptreact setlocal shiftwidth=2
 autocmd FileType json setlocal shiftwidth=4
 
+" Set syntax highlight for .tsx and .jsx files
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+set background=dark
+
 set t_Co=256
 let mapleader = ' '
 
@@ -38,12 +43,6 @@ inoremap jk <esc>
 call plug#begin()
 
 Plug 'numToStr/Comment.nvim'
-" Plug 'ray-x/lsp_signature.nvim'
-" Plug 'hrsh7th/nvim-cmp'
-" Plug 'hrsh7th/cmp-nvim-lsp'
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'saadparwaiz1/cmp_luasnip'
-" Plug 'L3MON4D3/LuaSnip'
 
 " JS, TS, JSX, TSX
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -64,12 +63,13 @@ Plug 'preservim/nerdcommenter'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'LunarWatcher/auto-pairs'
-Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/tagbar'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'mhinz/vim-signify'
+
+Plug 'lewis6991/gitsigns.nvim'
+
 Plug 'tpope/vim-rhubarb'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 " Plug 'honza/vim-snippets'
@@ -80,14 +80,8 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'vim-airline/vim-airline-themes'
 
 " color schemas
-Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
-Plug 'mhartington/oceanic-next'  " colorscheme OceanicNext
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'ayu-theme/ayu-vim'
+Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 Plug 'lunarvim/colorschemes'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-
 
 call plug#end()
 
@@ -105,6 +99,8 @@ endfunction
 
 let g:python_highlight_all=1
 
+" gitsigns setup()
+lua require('gitsigns').setup()
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
@@ -122,17 +118,6 @@ nnoremap ,ff <cmd> Telescope find_files cwd=. hidden=true<cr>
 
 " Markdown
 nnoremap <c-s> <Esc>:MarkdownPreview<cr>
-
-" Signify
-let g:signify_sign_add = '+'
-let g:signify_sign_delete = '_'
-"let g:signify_sign_delete_first_time = ''
-let g:signify_sign_change = '~'
-
-nmap <leader>gj <plug>(signify-next-hunk)
-nmap <leader>gk <plug>(signify-prev-hunk)
-nmap <leader>gJ 9999<leader>gJ
-nmap <leader>gK 9999<leader>gK
 
 " Ctrl + a to select all text
 map <C-a> <esc>ggVG<CR>
@@ -161,8 +146,8 @@ vnoremap <S-K> <C-U>
 vnoremap <S-L> w
 vnoremap <S-H> b
 
-"colorscheme system76
-colorscheme rose-pine
+" colorscheme
+colorscheme moonfly
 
 let g:auto_pairs_map_keys = 1
 
@@ -220,6 +205,22 @@ hi DiagnosticHint  guifg=White
 
 lua << EOF
 local plenary = require "plenary"
+local status, treesitter = pcall(require, "nvim-treesitter.configs")
+
+-- configure treesitter
+treesitter.setup({
+  -- enable indentation
+  indent = { enable = true },
+  -- ensure these language parsers are installed
+  ensure_installed = {
+    "json",
+    "javascript",
+    "typescript",
+    "tsx",
+  },
+  -- auto install above language parsers
+  auto_install = true,
+})
 
 require('telescope').setup {
   defaults = {

@@ -18,12 +18,13 @@
         "typescriptreact"
     ],
     "coc.preferences.formatOnType": true,
-    // "tsserver.formatOnType": true,
 
     "typescript.suggest.completeFunctionCalls": false,
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
-    "typescript.preferences.quoteStyle": "single"
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.showUnused": false,
+    "typescript.preferences.jsxAttributeCompletionStyle": "none"
 }
 
