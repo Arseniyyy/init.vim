@@ -59,7 +59,7 @@ Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 
 Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
-Plug 'preservim/nerdcommenter'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'LunarWatcher/auto-pairs'
@@ -98,6 +98,13 @@ function! s:show_documentation()
 endfunction
 
 let g:python_highlight_all=1
+
+" Comment .py files
+nnoremap <C-k> :normal I# <Esc>
+nnoremap <C-u> :silent! execute 'normal 0f#xx' \| :nohlsearch<CR>
+
+vnoremap <silent> <C-k> :s/^/# /<cr>:noh<cr>
+vnoremap <silent> <C-u> :s/^# //<cr>:noh<cr>
 
 " gitsigns setup()
 lua require('gitsigns').setup()
@@ -159,12 +166,7 @@ endif
 source $HOME/.config/nvim/themes/airline.vim
 
 lua require 'colorizer'.setup()
-lua require('Comment').setup()
-
-" NerdCommenter
-nmap <C-_> <Plug>NERDCommenterToggle
-vmap <C-_> <Plug>NERDCommenterToggle<CR>gv
-
+" lua require('Comment').setup()
 
 " NerdTree
 let NERDTreeQuitOnOpen=1
@@ -181,7 +183,7 @@ nmap <F8> :TagbarToggle<CR>
 
 " Coc
 nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#confirm() : "\<Tab>"
 
 " Tabs
 nmap <leader>1 :bp<CR>
@@ -217,6 +219,7 @@ treesitter.setup({
     "javascript",
     "typescript",
     "tsx",
+    "python"
   },
   -- auto install above language parsers
   auto_install = true,
@@ -230,5 +233,32 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
+EOF
+
+
+
+lua << EOF
+local status_ok, comment = pcall(require, "Comment")
+if not status_ok then
+  return
+end
+
+comment.setup {
+  pre_hook = function(ctx)
+    local U = require "Comment.utils"
+
+    local location = nil
+    if ctx.ctype == U.ctype.block then
+      location = require("ts_context_commentstring.utils").get_cursor_location()
+    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+      location = require("ts_context_commentstring.utils").get_visual_start_location()
+    end
+
+    return require("ts_context_commentstring.internal").calculate_commentstring {
+      key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
+      location = location,
+    }
+  end,
+}
 EOF
 
