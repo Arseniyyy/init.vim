@@ -188,7 +188,8 @@ inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#confirm() : "\<Tab>"
 " Tabs
 nmap <leader>1 :bp<CR>
 nmap <leader>2 :bn<CR>
-nmap <C-w> :bd<CR>
+" nmap <C-w> :bd<CR>
+nmap cls :bd<CR>
 
 " Deletion
 nnoremap <Delete> "_d
