@@ -44,6 +44,9 @@ call plug#begin()
 
 Plug 'numToStr/Comment.nvim'
 
+" lsp-servers
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
 " JS, TS, JSX, TSX
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'pangloss/vim-javascript'
@@ -66,7 +69,6 @@ Plug 'LunarWatcher/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/tagbar'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'lewis6991/gitsigns.nvim'
 
@@ -97,6 +99,9 @@ function! s:show_documentation()
 endfunction
 
 let g:python_highlight_all=1
+
+" Tailiwindcss
+au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
 
 " Comment .py files
 nnoremap <C-k> :normal I# <Esc>
@@ -210,7 +215,7 @@ local status, treesitter = pcall(require, "nvim-treesitter.configs")
 -- configure treesitter
 treesitter.setup({
   -- enable indentation
-  indent = { enable = true },
+  --[[ indent = { enable = true }, ]]
   -- ensure these language parsers are installed
   ensure_installed = {
     "json",
