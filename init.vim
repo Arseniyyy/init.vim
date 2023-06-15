@@ -13,8 +13,8 @@ filetype plugin indent on
 " for tabulation
 set tabstop=4
 " set softtabstop=4
-set shiftwidth=4
-" set smartindent
+set shiftwidth=2
+set smartindent
 set expandtab
 set autoindent
 
@@ -72,7 +72,6 @@ Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'tpope/vim-rhubarb'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-" Plug 'honza/vim-snippets'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.9.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
@@ -114,8 +113,10 @@ autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 " auto-pairs
+let g:AutoPairs = autopairs#AutoPairsDefine([{ "open": "<", "close": "", "filetype": ["html"] }])
 let g:AutoPairsMapBS = 1
 let g:AutoPairsMultilineBackspace = 1
+let g:auto_pairs_map_keys = 1
 
 " cgn
 nnoremap <silent> c<Tab> :let @/=expand('<cword>')<cr>cgn
@@ -156,8 +157,6 @@ vnoremap <S-H> b
 " colorscheme
 colorscheme moonfly
 
-let g:auto_pairs_map_keys = 1
-
 if (has("termguicolors"))
     set termguicolors
 endif
@@ -172,8 +171,6 @@ lua require 'colorizer'.setup()
 let NERDTreeQuitOnOpen=1
 nmap <Tab> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
-
-" nnoremap nr :NERDTreeRefreshRoot<CR>
 
 " Refresh NERDTree buffer and focus on current project's folder
 nnoremap nr :NERDTreeRefreshRoot<CR>:NERDTreeRefreshRoot<CR>
