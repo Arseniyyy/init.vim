@@ -214,15 +214,9 @@ local status, treesitter = pcall(require, "nvim-treesitter.configs")
 
 -- configure treesitter
 treesitter.setup({
-  -- enable indentation
-  --[[ indent = { enable = true }, ]]
   -- ensure these language parsers are installed
   ensure_installed = {
-    "json",
-    "javascript",
-    "typescript",
     "tsx",
-    "python"
   },
   -- auto install above language parsers
   auto_install = true,
