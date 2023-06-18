@@ -11,21 +11,21 @@ set signcolumn=yes
 set fileformat=unix
 filetype plugin indent on
 " for tabulation
-set tabstop=4
-" set softtabstop=4
+set tabstop=2
 set shiftwidth=2
-set smartindent
+set nosmartindent
 set expandtab
-set autoindent
+set noautoindent
 
 set wrap
 
 " Set shiftwidth for different file extensions
-autocmd FileType typescript setlocal shiftwidth=2
+" autocmd FileType typescript setlocal shiftwidth=2
 autocmd FileType javascript setlocal shiftwidth=2
+
 autocmd FileType javascriptreact setlocal shiftwidth=2
-autocmd FileType typescriptreact setlocal shiftwidth=2
 autocmd FileType json setlocal shiftwidth=4
+
 
 " Set syntax highlight for .tsx and .jsx files
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
@@ -47,17 +47,17 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " JS, TS, JSX, TSX
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
+
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'maxmellon/vim-jsx-pretty'
+
 Plug 'nvim-lua/plenary.nvim'
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+" Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 
 Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
-Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'LunarWatcher/auto-pairs'
@@ -95,6 +95,9 @@ function! s:show_documentation()
 endfunction
 
 let g:python_highlight_all=1
+
+" typescript-vim config
+let g:typescript_indent_disable = 1
 
 " Tailiwindcss
 au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
@@ -166,7 +169,6 @@ endif
 source $HOME/.config/nvim/themes/airline.vim
 
 lua require 'colorizer'.setup()
-" lua require('Comment').setup()
 
 " NerdTree
 let NERDTreeQuitOnOpen=1
@@ -205,6 +207,28 @@ hi DiagnosticInfo  guifg=White
 hi DiagnosticHint  guifg=White
 
 lua << EOF
+
+-- Treesitter config
+local configs = require("nvim-treesitter.configs")
+configs.setup {
+  ensure_installed = {
+    "typescript",
+    "tsx",
+    "yaml",
+  },
+  sync_install = false,
+  ignore_install = { "python", "vim" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = false, -- false will disable the whole extension
+    disable = { "python", "typescript", "tsx", "vim" }, -- list of language that will be disabled
+    additional_vim_regex_highlighting = true,
+  },
+  indent = { enable = true, disable = {  } },
+}
+
+
+
+
 local plenary = require "plenary"
 local status, treesitter = pcall(require, "nvim-treesitter.configs")
 
