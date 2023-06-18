@@ -42,8 +42,6 @@ inoremap jk <esc>
 
 call plug#begin()
 
-Plug 'numToStr/Comment.nvim'
-
 " lsp-servers
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
@@ -56,9 +54,6 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'npm install --frozen-lockfile --production',
-"   \ 'for': ['javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
@@ -68,6 +63,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'LunarWatcher/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'preservim/tagbar'
 
 Plug 'lewis6991/gitsigns.nvim'
@@ -212,16 +208,6 @@ lua << EOF
 local plenary = require "plenary"
 local status, treesitter = pcall(require, "nvim-treesitter.configs")
 
--- configure treesitter
-treesitter.setup({
-  -- ensure these language parsers are installed
-  ensure_installed = {
-    "tsx",
-  },
-  -- auto install above language parsers
-  auto_install = true,
-})
-
 require('telescope').setup {
   defaults = {
     file_sorter = require('telescope.sorters').get_fuzzy_file,
@@ -230,32 +216,5 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
-EOF
-
-
-
-lua << EOF
-local status_ok, comment = pcall(require, "Comment")
-if not status_ok then
-  return
-end
-
-comment.setup {
-  pre_hook = function(ctx)
-    local U = require "Comment.utils"
-
-    local location = nil
-    if ctx.ctype == U.ctype.block then
-      location = require("ts_context_commentstring.utils").get_cursor_location()
-    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-      location = require("ts_context_commentstring.utils").get_visual_start_location()
-    end
-
-    return require("ts_context_commentstring.internal").calculate_commentstring {
-      key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
-      location = location,
-    }
-  end,
-}
 EOF
 
