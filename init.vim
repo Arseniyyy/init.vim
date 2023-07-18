@@ -4,7 +4,7 @@ set number
 set noswapfile
 set scrolloff=7
 set backspace=indent,eol,start
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 
 set signcolumn=yes
 
@@ -24,7 +24,7 @@ set wrap
 autocmd FileType javascript setlocal shiftwidth=2
 
 autocmd FileType javascriptreact setlocal shiftwidth=2
-autocmd FileType json setlocal shiftwidth=4
+" autocmd FileType json setlocal shiftwidth=4
 
 
 " Set syntax highlight for .tsx and .jsx files
@@ -96,18 +96,18 @@ endfunction
 
 let g:python_highlight_all=1
 
+" Assign "end" and "be" to jump to the end and the beginning of the line accordingly
+nnoremap end $
+nnoremap be 0
+
+xnoremap end $
+xnoremap be 0
+
 " typescript-vim config
 let g:typescript_indent_disable = 1
 
 " Tailiwindcss
 au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
-
-" Comment .py files
-nnoremap <C-k> :normal I# <Esc>
-nnoremap <C-u> :silent! execute 'normal 0f#xx' \| :nohlsearch<CR>
-
-vnoremap <silent> <C-k> :s/^/# /<cr>:noh<cr>
-vnoremap <silent> <C-u> :s/^# //<cr>:noh<cr>
 
 " gitsigns setup()
 lua require('gitsigns').setup()
@@ -215,6 +215,8 @@ configs.setup {
     "typescript",
     "tsx",
     "yaml",
+    -- "json",
+    -- "jsonc",
   },
   sync_install = false,
   ignore_install = { "python", "vim" }, -- List of parsers to ignore installing
@@ -223,7 +225,7 @@ configs.setup {
     disable = { "python", "typescript", "tsx", "vim" }, -- list of language that will be disabled
     additional_vim_regex_highlighting = true,
   },
-  indent = { enable = true, disable = {  } },
+  indent = { enable = true, disable = {} },
 }
 
 
