@@ -47,14 +47,11 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " JS, TS, JSX, TSX
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Plug 'pangloss/vim-javascript'
 
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'nvim-lua/plenary.nvim'
-" Plug 'jose-elias-alvarez/null-ls.nvim'
-" Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 
 Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
@@ -65,6 +62,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/tagbar'
+Plug 'lambdalisue/suda.vim'
 
 Plug 'lewis6991/gitsigns.nvim'
 

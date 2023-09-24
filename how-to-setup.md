@@ -1,9 +1,8 @@
 1.
 ```
 sudo apt update
-sudo apt install gcc make g++ xclip curl
+sudo apt install gcc make g++ xclip curl nodejs
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install nodejs
 npm install -g yarn
 ```
 
