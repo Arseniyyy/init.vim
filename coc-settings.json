@@ -1,8 +1,8 @@
 {
     // "python.pythonPath": "/home/arseny/.virtualenvs/drf/bin/python",
     // "python.pythonPath": "/home/arseny/.virtualenvs/maiker-cli/bin/python",
-    "python.pythonPath": "/home/arseny/.virtualenvs/django-movie/bin/python",
     // "python.pythonPath": "/home/arseny/.virtualenvs/gpt-engineer/bin/python",
+    "python.pythonPath": "/home/arseny/.virtualenvs/django-movie/bin/python",
     "coc.preferences.documentation.enable": ["python"],
     "python.analysis.autoImportCompletions": true,
     "python.analysis.autoSearchPaths": true,
@@ -22,5 +22,7 @@
     "typescript.preferences.quoteStyle": "single",
     "typescript.showUnused": false,
     "typescript.preferences.jsxAttributeCompletionStyle": "none",
+
+    "scss.lint.unknownAtRules": "ignore"
 }
 

@@ -10,27 +10,25 @@ set signcolumn=yes
 
 set fileformat=unix
 filetype plugin indent on
+
 " for tabulation
 set tabstop=2
 set shiftwidth=2
 set nosmartindent
 set expandtab
 set noautoindent
-
 set wrap
 
+" updatetime for vim-gitgutter
+set updatetime=100
+
+
 " Set shiftwidth for different file extensions
-" autocmd FileType typescript setlocal shiftwidth=2
 autocmd FileType javascript setlocal shiftwidth=2
-
 autocmd FileType javascriptreact setlocal shiftwidth=2
-" autocmd FileType json setlocal shiftwidth=4
-
 
 " Set syntax highlight for .tsx and .jsx files
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
-
-set background=dark
 
 set t_Co=256
 let mapleader = ' '
@@ -53,6 +51,7 @@ Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'nvim-lua/plenary.nvim'
 
+" Other
 Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdtree'
 Plug 'norcalli/nvim-colorizer.lua'
@@ -64,7 +63,8 @@ Plug 'tpope/vim-commentary'
 Plug 'preservim/tagbar'
 Plug 'lambdalisue/suda.vim'
 
-Plug 'lewis6991/gitsigns.nvim'
+" Plug 'lewis6991/gitsigns.nvim'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'tpope/vim-rhubarb'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
@@ -77,8 +77,22 @@ Plug 'vim-airline/vim-airline-themes'
 " color schemas
 Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 Plug 'lunarvim/colorschemes'
+Plug 'folke/tokyonight.nvim'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'morhetz/gruvbox'
+Plug 'dylanaraps/wal.vim'
+Plug 'Mofiqul/vscode.nvim'
+Plug 'tomasiser/vim-code-dark'
 
 call plug#end()
+highlight GitGutterAdd    guifg=#000000 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+
+" colorscheme wal
+" colorscheme vscode
+colorscheme codedark
+" set background=dark
 
 nnoremap <silent> U :call <SID>show_documentation()<CR>
 
@@ -107,8 +121,8 @@ let g:typescript_indent_disable = 1
 " Tailiwindcss
 au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
 
-" gitsigns setup()
-lua require('gitsigns').setup()
+" gitsigns setup
+" lua require('gitsigns').setup()
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
@@ -156,17 +170,20 @@ vnoremap <S-K> <C-U>
 vnoremap <S-L> w
 vnoremap <S-H> b
 
-" colorscheme
-colorscheme moonfly
 
 if (has("termguicolors"))
     set termguicolors
 endif
 
+" gitgutter config
+let g:gitgutter_sign_added = '│'
+let g:gitgutter_sign_modified = '│'
+let g:gitgutter_sign_removed = '│'
+
+autocmd BufWritePost * GitGutter
+
 " airline
 source $HOME/.config/nvim/themes/airline.vim
-
-lua require 'colorizer'.setup()
 
 " NerdTree
 let NERDTreeQuitOnOpen=1
