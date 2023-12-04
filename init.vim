@@ -22,6 +22,7 @@ set wrap
 " updatetime for vim-gitgutter
 set updatetime=100
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Set shiftwidth for different file extensions
 autocmd FileType javascript setlocal shiftwidth=2
@@ -60,16 +61,16 @@ Plug 'LunarWatcher/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-Plug 'preservim/tagbar'
 Plug 'lambdalisue/suda.vim'
 
 " Plug 'lewis6991/gitsigns.nvim'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'tpope/vim-rhubarb'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.9.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 " airline themes
 Plug 'vim-airline/vim-airline-themes'
@@ -229,12 +230,10 @@ configs.setup {
   ensure_installed = {
     "typescript",
     "tsx",
-    "yaml",
-    -- "json",
-    -- "jsonc",
+    "python",
   },
   sync_install = false,
-  ignore_install = { "python", "vim" }, -- List of parsers to ignore installing
+  ignore_install = { "vim" }, -- List of parsers to ignore installing
   highlight = {
     enable = false, -- false will disable the whole extension
     disable = { "python", "typescript", "tsx", "vim" }, -- list of language that will be disabled
