@@ -22,11 +22,26 @@ set wrap
 " updatetime for vim-gitgutter
 set updatetime=100
 
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
+let g:loaded_node_provider = 0
+
+
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Set shiftwidth for different file extensions
 autocmd FileType javascript setlocal shiftwidth=2
 autocmd FileType javascriptreact setlocal shiftwidth=2
+
+" Java indentation settings
+augroup filetypedetect
+  au BufRead,BufNewFile *.java setfiletype java
+augroup END
+
+autocmd FileType java setlocal shiftwidth=4
+autocmd FileType java setlocal tabstop=4
+autocmd FileType java setlocal softtabstop=4
+autocmd FileType java setlocal expandtab
 
 " Set syntax highlight for .tsx and .jsx files
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
@@ -43,6 +58,10 @@ call plug#begin()
 
 " lsp-servers
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'neovim/nvim-lspconfig'
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-jdtls'
+Plug 'nvim-lua/plenary.nvim'
 
 " JS, TS, JSX, TSX
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -50,7 +69,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
-Plug 'nvim-lua/plenary.nvim'
 
 " Other
 Plug 'vim-python/python-syntax'
@@ -86,6 +104,7 @@ Plug 'Mofiqul/vscode.nvim'
 Plug 'tomasiser/vim-code-dark'
 
 call plug#end()
+
 highlight GitGutterAdd    guifg=#000000 ctermfg=2
 highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
@@ -121,9 +140,6 @@ let g:typescript_indent_disable = 1
 
 " Tailiwindcss
 au FileType html let b:coc_root_patterns = ['.git', '.env', 'tailwind.config.js', 'tailwind.config.cjs']
-
-" gitsigns setup
-" lua require('gitsigns').setup()
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
@@ -230,10 +246,9 @@ configs.setup {
   ensure_installed = {
     "typescript",
     "tsx",
-    "python",
   },
   sync_install = false,
-  ignore_install = { "vim" }, -- List of parsers to ignore installing
+  ignore_install = { "python", "vim" }, -- List of parsers to ignore installing
   highlight = {
     enable = false, -- false will disable the whole extension
     disable = { "python", "typescript", "tsx", "vim" }, -- list of language that will be disabled

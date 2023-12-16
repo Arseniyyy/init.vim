@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/arseny/.virtualenvs/applang/bin/python",
+    "python.pythonPath": "/home/arseny/.virtualenvs/applang_chatgpt/bin/python",
     "coc.preferences.documentation.enable": ["python"],
     "python.analysis.autoImportCompletions": true,
     "python.analysis.autoSearchPaths": true,
@@ -24,6 +24,7 @@
 
     "[java]": {
       "semanticTokens.enable": true
-    }
+    },
+    "java.completion.guessMethodArguments": false
 }
 
