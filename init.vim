@@ -63,6 +63,12 @@ Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'nvim-lua/plenary.nvim'
 
+" autocompletion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
 " JS, TS, JSX, TSX
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
