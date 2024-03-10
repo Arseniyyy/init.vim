@@ -1,4 +1,4 @@
-Удалить полностью строку: shift + d
+Удалить полностью строку: `shift + v + Backspace` или `shift + c`
 Удалить целое словов с шагом назад: ctrl + w
 Копировать: ctrl + c
 
@@ -48,3 +48,6 @@
 ```
 :,.,+3s/old/new
 ```
+
+## Замена текста рекурсивно
+`grep -rl "old_word" /path/to/folder | xargs sed -i "s/old_word/new_word/g"`

@@ -23,9 +23,9 @@ local on_attach = function(client, bufnr)
   -- Стандартные сочетания для LSP клиента Neovim
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   nnoremap('gD', vim.lsp.buf.declaration, bufopts, "Go to declaration")
-  nnoremap('gd', vim.lsp.buf.definition, bufopts, "Go to definition")
+  nnoremap('<C-l>', vim.lsp.buf.definition, bufopts, "Go to definition")
   nnoremap('gi', vim.lsp.buf.implementation, bufopts, "Go to implementation")
-  nnoremap('K', vim.lsp.buf.hover, bufopts, "Hover text")
+  nnoremap('<S-u>', vim.lsp.buf.hover, bufopts, "Hover text")
   nnoremap('<C-k>', vim.lsp.buf.signature_help, bufopts, "Show signature")
   nnoremap('<space>wa', vim.lsp.buf.add_workspace_folder, bufopts, "Add workspace folder")
   nnoremap('<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts, "Remove workspace folder")
@@ -63,18 +63,18 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
+    -- ['<C-Space>'] = cmp.mapping.complete(),
+    ['<Tab>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    -- ['<CR>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()

@@ -26,9 +26,6 @@ let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_node_provider = 0
 
-
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
 " Set shiftwidth for different file extensions
 autocmd FileType javascript setlocal shiftwidth=2
 autocmd FileType javascriptreact setlocal shiftwidth=2
