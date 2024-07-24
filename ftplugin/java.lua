@@ -107,7 +107,7 @@ local config = {
           -- Используем гайд по форматированию Java от Google
           -- Убедитесь, что вы загрузили файл https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml
           -- и поместили его в папку ~/.local/share/eclipse, например
-          url = "/.local/share/eclipse/eclipse-java-google-style.xml",
+          url = "/home/arseniy/.local/share/eclipse/eclipse-java-google-style.xml",
           profile = "GoogleStyle",
         },
       },
@@ -115,6 +115,12 @@ local config = {
       contentProvider = { preferred = 'fernflower' },  -- Используем утилиту fernflower для декомпиляции кода библиотек
       -- Указываем опции для авто-дополнения
       completion = {
+        importOrder = {
+          "com",
+          "org",
+          "jakarta",
+          "java"
+        },
         favoriteStaticMembers = {
           "org.hamcrest.MatcherAssert.assertThat",
           "org.hamcrest.Matchers.*",
@@ -154,10 +160,6 @@ local config = {
 	  -- ВАЖНО: Поле `name` НЕ выбирается произвольно, но должно соответствовать одному из элементов в `enum ExecutionEnvironment` по ссылке выше.
       configuration = {
         runtimes = {
-          {
-            name = "JavaSE-21",
-            path = "/usr/lib/jvm/jdk-21-oracle-x64", -- прим. перевод.: JDK, которые использует автор. У вас могут быть свои :)
-          },
         }
       }
     }
@@ -167,7 +169,7 @@ local config = {
   -- См.: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   -- для полного списка опций.
   cmd = {
-    "/usr/lib/jvm/jdk-21-oracle-x64/bin/java",
+    "java",
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -180,11 +182,11 @@ local config = {
 
     -- Следующий jar файл расположен внутри папки, в которую вы установили/распаковали jdtls.
     -- ВАЖНО: не забудьте изменить путь до jdtls ниже:
-    '-jar', vim.fn.glob('/home/arseny/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_*.jar'),
+    '-jar', '/home/arseniy/jdt-language-server-1.26.0-202307271613/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar',
 
     -- Стандартная конфигурация для jdtls также расположена внутри его папки.
 	-- ВАЖНО: измените путь до jdtls, а также выберите конфиг-папку согласно вашей системе: config_win, config_linux или config_mac:
-    '-configuration', '/home/arseny/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_linux',
+    '-configuration', '/home/arseniy/jdt-language-server-1.26.0-202307271613/config_linux',
 
     -- Переиспользуем workspace_folder определённый выше, чтобы хранить специфичные jdtls данные для проекта
     '-data', workspace_folder,

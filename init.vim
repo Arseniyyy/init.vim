@@ -12,12 +12,25 @@ set fileformat=unix
 filetype plugin indent on
 
 " for tabulation
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set nosmartindent
 set expandtab
 set noautoindent
 set wrap
+set cindent
+
+"colors settings "
+set termguicolors
+highlight Type cterm=bold gui=bold
+
+augroup MyHighlight
+  autocmd!
+  autocmd FileType java highlight javaType cterm=bold gui=bold
+  autocmd FileType java highlight javaKeyword cterm=bold gui=bold
+  autocmd FileType java highlight javaStorageClass cterm=bold gui=bold
+  autocmd FileType java highlight javaBoolean cterm=bold gui=bold
+augroup END
 
 " updatetime for vim-gitgutter
 set updatetime=100
@@ -88,7 +101,6 @@ Plug 'lambdalisue/suda.vim'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'tpope/vim-rhubarb'
-" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.9.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
@@ -106,6 +118,9 @@ Plug 'dylanaraps/wal.vim'
 Plug 'Mofiqul/vscode.nvim'
 Plug 'tomasiser/vim-code-dark'
 
+Plug 'projekt0n/github-nvim-theme'
+Plug 'ramojus/mellifluous.nvim'
+
 call plug#end()
 
 highlight GitGutterAdd    guifg=#000000 ctermfg=2
@@ -113,9 +128,8 @@ highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
 " colorscheme wal
-" colorscheme vscode
-colorscheme codedark
-" set background=dark
+colorscheme github_light
+set background=light
 
 nnoremap <silent> U :call <SID>show_documentation()<CR>
 
@@ -190,11 +204,6 @@ vnoremap <S-K> <C-U>
 vnoremap <S-L> w
 vnoremap <S-H> b
 
-
-if (has("termguicolors"))
-    set termguicolors
-endif
-
 " gitgutter config
 let g:gitgutter_sign_added = '│'
 let g:gitgutter_sign_modified = '│'
@@ -249,15 +258,17 @@ configs.setup {
   ensure_installed = {
     "typescript",
     "tsx",
+    "c",
+    "java"
   },
   sync_install = false,
   ignore_install = { "python", "vim" }, -- List of parsers to ignore installing
   highlight = {
-    enable = false, -- false will disable the whole extension
+    enable = true, -- false will disable the whole extension
     disable = { "python", "typescript", "tsx", "vim" }, -- list of language that will be disabled
     additional_vim_regex_highlighting = true,
   },
-  indent = { enable = true, disable = {} },
+  indent = { enable = true, disable = {"java"} },
 }
 
 
@@ -275,4 +286,3 @@ require('telescope').setup {
 
 require('telescope').load_extension('fzf')
 EOF
-
