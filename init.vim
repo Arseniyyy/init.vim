@@ -12,8 +12,8 @@ set fileformat=unix
 filetype plugin indent on
 
 " for tabulation
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set nosmartindent
 set expandtab
 set noautoindent
