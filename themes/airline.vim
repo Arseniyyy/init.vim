@@ -1,5 +1,6 @@
 " let g:airline_theme = 'base16_black_metal_gorgoroth'
-let g:airline_theme='base16_cupcake'
+let g:airline_theme = 'base16_onedark'
+" let g:airline_theme='base16_cupcake'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemode = ':t'
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
